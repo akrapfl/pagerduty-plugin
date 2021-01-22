@@ -36,6 +36,22 @@ public class ChangeEventSender {
             e.printStackTrace(listener.error(e.getMessage()));
         }
     }
+    
+    public final void send(String integrationKey, String summaryText, Run<?, ?> build, TaskListener listener) {
+        try {
+            ChangeEvent changeEvent = getChangeEvent(integrationKey, summaryText,build);
+            String json = convertToJSON(changeEvent);
+
+            listener.getLogger().println("Generated payload for PagerDuty Change Events");
+            listener.getLogger().println(json);
+
+            ChangeEventsAPI.Response response = ChangeEventsAPI.send(json);
+            listener.getLogger().println("PagerDuty Change Events responded with " + response.getCode());
+            listener.getLogger().println(response.getBody());
+        } catch (IOException e) {
+            e.printStackTrace(listener.error(e.getMessage()));
+        }
+    }
 
     private ChangeEvent getChangeEvent(String integrationKey, Run<?, ?> build) {
         String summary = getSummary(build);
@@ -43,6 +59,15 @@ public class ChangeEventSender {
         ChangeEvent.Link buildLink = getBuildLink(build);
 
         return new ChangeEvent.Builder().setIntegrationKey(integrationKey).setSummary(summary)
+                .setTimestamp(build.getTime()).setCustomDetails(customDetails).addLink(buildLink).build();
+    }
+    
+    private ChangeEvent getChangeEvent(String integrationKey,  String summaryText,Run<?, ?> build) {
+        //String summary = eventData;
+        HashMap<String, ?> customDetails = getCustomDetails(build);
+        ChangeEvent.Link buildLink = getBuildLink(build);
+
+        return new ChangeEvent.Builder().setIntegrationKey(integrationKey).setSummary(summaryText)
                 .setTimestamp(build.getTime()).setCustomDetails(customDetails).addLink(buildLink).build();
     }
 
