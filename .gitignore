@@ -17,3 +17,4 @@ hs_err_pid*
 
 # Where files are stored when running the development server
 work/
+/.envrc

@@ -1,0 +1,64 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+      <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
+      <createOnSuccess>false</createOnSuccess>
+      <createOnFailure>false</createOnFailure>
+      <createOnUnstable>false</createOnUnstable>
+      <createOnAborted>false</createOnAborted>
+      <createOnNotBuilt>false</createOnNotBuilt>
+      <summaryText>Starting build steps</summaryText>
+    </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh
+
+true
+</command>
+    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+      <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
+      <createOnSuccess>false</createOnSuccess>
+      <createOnFailure>false</createOnFailure>
+      <createOnUnstable>false</createOnUnstable>
+      <createOnAborted>false</createOnAborted>
+      <createOnNotBuilt>false</createOnNotBuilt>
+      <summaryText>Almost done</summaryText>
+    </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+    <hudson.tasks.Shell>
+      <command>whoami</command>
+    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+      <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
+      <createOnSuccess>false</createOnSuccess>
+      <createOnFailure>false</createOnFailure>
+      <createOnUnstable>false</createOnUnstable>
+      <createOnAborted>false</createOnAborted>
+      <createOnNotBuilt>false</createOnNotBuilt>
+      <summaryText>Finished build steps</summaryText>
+    </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+  </builders>
+  <publishers>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEvents>
+      <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
+      <createOnSuccess>true</createOnSuccess>
+      <createOnFailure>true</createOnFailure>
+      <createOnUnstable>true</createOnUnstable>
+      <createOnAborted>true</createOnAborted>
+      <createOnNotBuilt>true</createOnNotBuilt>
+      <summaryText></summaryText>
+    </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEvents>
+  </publishers>
+  <buildWrappers/>
+</project>
