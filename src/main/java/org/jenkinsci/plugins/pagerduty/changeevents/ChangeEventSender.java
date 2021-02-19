@@ -39,6 +39,7 @@ public class ChangeEventSender {
 
             listener.getLogger().println("Generated payload for PagerDuty Change Events");
             listener.getLogger().println(json);
+	    listener.getLogger().println("--------------------------");
 
             ChangeEventsAPI.Response response = ChangeEventsAPI.send(json);
             listener.getLogger().println("PagerDuty Change Events responded with " + response.getCode());

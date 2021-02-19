@@ -8,7 +8,6 @@ import hudson.model.AbstractBuild;
 import hudson.model.Result;
 import hudson.model.Run;
 import hudson.tasks.Builder;
-import hudson.model.TaskListener;
 import hudson.model.BuildListener;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Notifier;
@@ -28,42 +27,18 @@ import javax.annotation.Nonnull;
 /**
  * A build step for recording a PagerDuty Change Event.
  *
- * This is intended to be used as a post-build action. It takes details from the
- * build and makes an API call to PagerDuty's Change Events API.
+ * This is intended to be used as a build action. It takes the summary text
+ * and makes an API call to PagerDuty's Change Events API.
  *
  * See https://developer.pagerduty.com/docs/events-api-v2/send-change-events/
  */
-// public class NessusScanBuilder extends Builder {
+
 public class ChangeEventBuilder extends Builder  {
     /**
      * The integration key that identifies the service the change occurred on.
      */
     private final String integrationKey;
 
-    /**
-     * Should a change event be created on successful builds.
-     */
-    private boolean createOnSuccess;
-
-    /**
-     * Should a change event be created on failed builds.
-     */
-    private boolean createOnFailure;
-
-    /**
-     * Should a change event be created on unstable builds.
-     */
-    private boolean createOnUnstable;
-
-    /**
-     * Should a change event be created on aborted builds.
-     */
-    private boolean createOnAborted;
-
-    /**
-     * Should a change event be created on not built builds.
-     */
-    private boolean createOnNotBuilt;
     /**
      * custom event data that can be passed on to set as summary
      */
@@ -77,30 +52,9 @@ public class ChangeEventBuilder extends Builder  {
 
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
-	// public void    perform(Run<?, ?> build, @Nonnull FilePath workspace, @Nonnull Launcher launcher,
-	// @Nonnull TaskListener listener) {
-        Result result = build.getResult();
-
-        if ((result == Result.SUCCESS && createOnSuccess) || (result == Result.FAILURE && createOnFailure)
-                || (result == Result.UNSTABLE && createOnUnstable) || (result == Result.ABORTED && createOnAborted)
-                || (result == Result.NOT_BUILT && createOnNotBuilt)) {
-        	
-        	
-        	new ChangeEventSender().send(integrationKey, summaryText, build, listener);
-        	
-        }
+        new ChangeEventSender().send(integrationKey, summaryText, build, listener);
 	return true;
     }
-// nessus
-    // @Override
-    // public DescriptorImpl getDescriptor() {
-    //     return (DescriptorImpl)super.getDescriptor();
-    // }
-
- // original
-    // public static DescriptorImpl descriptor() {
-    //     return Jenkins.get().getDescriptorByType(ChangeEventBuilder.DescriptorImpl.class);
-    // }
 
     public String getIntegrationKey() {
         return integrationKey;
@@ -110,51 +64,6 @@ public class ChangeEventBuilder extends Builder  {
 	    return summaryText;
 	  }
 
-    public boolean getCreateOnSuccess() {
-        return createOnSuccess;
-    }
-
-    @DataBoundSetter
-    public void setCreateOnSuccess(boolean createOnSuccess) {
-        this.createOnSuccess = createOnSuccess;
-    }
-
-    public boolean getCreateOnFailure() {
-        return createOnFailure;
-    }
-
-    @DataBoundSetter
-    public void setCreateOnFailure(boolean createOnFailure) {
-        this.createOnFailure = createOnFailure;
-    }
-
-    public boolean getCreateOnUnstable() {
-        return createOnUnstable;
-    }
-
-    @DataBoundSetter
-    public void setCreateOnUnstable(boolean createOnUnstable) {
-        this.createOnUnstable = createOnUnstable;
-    }
-
-    public boolean getCreateOnAborted() {
-        return createOnAborted;
-    }
-
-    @DataBoundSetter
-    public void setCreateOnAborted(boolean createOnAborted) {
-        this.createOnAborted = createOnAborted;
-    }
-
-    public boolean getCreateOnNotBuilt() {
-        return createOnNotBuilt;
-    }
-
-    @DataBoundSetter
-    public void setCreateOnNotBuilt(boolean createOnNotBuilt) {
-        this.createOnNotBuilt = createOnNotBuilt;
-    }
-    
     @DataBoundSetter
     public void setSummaryText(String summaryText) {
   	  this.summaryText = summaryText;
