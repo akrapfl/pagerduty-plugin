@@ -12,14 +12,9 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder plugin="pagerduty@0.6.3-SNAPSHOT">
       <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
-      <createOnSuccess>false</createOnSuccess>
-      <createOnFailure>false</createOnFailure>
-      <createOnUnstable>false</createOnUnstable>
-      <createOnAborted>false</createOnAborted>
-      <createOnNotBuilt>false</createOnNotBuilt>
-      <summaryText>Starting build steps</summaryText>
+      <summaryText>Starting build</summaryText>
     </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
     <hudson.tasks.Shell>
       <command>#!/bin/sh
@@ -27,30 +22,23 @@
 true
 </command>
     </hudson.tasks.Shell>
-    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder plugin="pagerduty@0.6.3-SNAPSHOT">
       <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
-      <createOnSuccess>false</createOnSuccess>
-      <createOnFailure>false</createOnFailure>
-      <createOnUnstable>false</createOnUnstable>
-      <createOnAborted>false</createOnAborted>
-      <createOnNotBuilt>false</createOnNotBuilt>
       <summaryText>Almost done</summaryText>
     </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
     <hudson.tasks.Shell>
       <command>whoami</command>
     </hudson.tasks.Shell>
-    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder plugin="pagerduty@0.6.3-SNAPSHOT">
       <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
-      <createOnSuccess>false</createOnSuccess>
-      <createOnFailure>false</createOnFailure>
-      <createOnUnstable>false</createOnUnstable>
-      <createOnAborted>false</createOnAborted>
-      <createOnNotBuilt>false</createOnNotBuilt>
-      <summaryText>Finished build steps</summaryText>
+      <summaryText>Finished build</summaryText>
     </org.jenkinsci.plugins.pagerduty.changeevents.ChangeEventBuilder>
+    <hudson.tasks.Shell>
+      <command>sleep 1</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEvents>
+    <org.jenkinsci.plugins.pagerduty.changeevents.ChangeEvents plugin="pagerduty@0.6.3-SNAPSHOT">
       <integrationKey>d3df4ed909064e17bcafea92be16fddb</integrationKey>
       <createOnSuccess>true</createOnSuccess>
       <createOnFailure>true</createOnFailure>
